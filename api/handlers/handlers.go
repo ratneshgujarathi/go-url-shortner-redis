@@ -1,4 +1,4 @@
-package routes
+package handlers
 
 import (
 	"net/http"
@@ -42,7 +42,7 @@ func ShortenUrl(c *gin.Context) {
 	}
 
 	if !govalidator.IsURL(body.URL) {
-		c.JSON(http.StatusBadRequest, g.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"errors": "Invalid Url",
 		})
 	}

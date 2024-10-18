@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/ratneshgujarathi/url-shortner-redis/api/constants"
+	"github.com/ratneshgujarathi/url-shortner-redis/api/routes"
 )
 
 func main() {
@@ -17,15 +17,12 @@ func main() {
 	}
 
 	router := gin.Default()
+	routes.SetupRouter((router))
 	port := os.Getenv("APP_PORT")
 
 	if port == "" {
 		port = "8080"
 	}
-
-	log.Fatal(router.Run(":", port))
-}
-
-func setupRouter(router *gin.Engine) {
-	router.POST(constants.SHORT_URL_PATH)
+	serverAddr := ":" + port
+	log.Fatal(router.Run(serverAddr))
 }
